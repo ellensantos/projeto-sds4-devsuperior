@@ -1,6 +1,8 @@
 package br.com.devsuperior.ellensantos.dsvendas.controllers;
 
 import br.com.devsuperior.ellensantos.dsvendas.dto.SaleDTO;
+import br.com.devsuperior.ellensantos.dsvendas.dto.SaleSuccessDTO;
+import br.com.devsuperior.ellensantos.dsvendas.dto.SaleSumDTO;
 import br.com.devsuperior.ellensantos.dsvendas.dto.SellerDTO;
 import br.com.devsuperior.ellensantos.dsvendas.services.SaleService;
 import br.com.devsuperior.ellensantos.dsvendas.services.SellerService;
@@ -28,6 +30,18 @@ public class SaleController {
     @GetMapping
     public ResponseEntity<Page<SaleDTO>> findAll(Pageable pageable){
         Page<SaleDTO> list = service.findAll(pageable);
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(value = "/amount-by-seller")
+    public ResponseEntity<List<SaleSumDTO>> amountGroupedBySeller(){
+        List<SaleSumDTO> list = service.amountGroupedBySeller();
+        return ResponseEntity.ok(list);
+    }
+
+    @GetMapping(value = "/success-by-seller")
+    public ResponseEntity<List<SaleSuccessDTO>> successGroupedBySeller(){
+        List<SaleSuccessDTO> list = service.successGroupedBySeller();
         return ResponseEntity.ok(list);
     }
 }
